@@ -737,7 +737,254 @@
           </div>
           <div class="rounded-3xl bg-dark px-6 py-8 text-center">
             <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-green-hi">E.M.U. SAIC</p>
-            <p class="font-display mt-2 text-3xl tracking-[0.14em] text-white">Fin del manual de uso</p>
+            <section class="ci" id="control-instrumentos">
+<style>
+.ci{--g:#1e8e3e;--gd:#166b2f;--gl:#e3f4e8;--bg:#fff;--pn:#f5f8f6;--ln:#d3ddd6;--tx:#17261c;--mu:#5f7066;--wa:#b7791f;--wl:#fdf0d5;--bd:#c62828;--bl:#fbe4e4;color:var(--tx);font-family:'DM Sans',system-ui,sans-serif;line-height:1.55;font-size:15px;margin:36px 0}
+.ci *{box-sizing:border-box}
+.ci h2{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;letter-spacing:1.5px;font-size:34px;margin:0 0 4px;color:var(--gd);border-bottom:3px solid var(--g);padding-bottom:6px}
+.ci .kick{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--g);letter-spacing:1px;text-transform:uppercase}
+.ci h3{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;letter-spacing:1px;font-size:24px;margin:30px 0 8px;color:var(--tx)}
+.ci h3 .n{color:var(--g);margin-right:6px}
+.ci h4{font-size:15px;margin:18px 0 6px;color:var(--gd)}
+.ci p{margin:8px 0}
+.ci ul,.ci ol{padding-left:22px;margin:8px 0}
+.ci li{margin:4px 0}
+.ci .lead{font-size:16px;color:var(--mu)}
+.ci table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+.ci th{background:var(--gd);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+.ci td{border:1px solid var(--ln);padding:8px 10px;vertical-align:top}
+.ci tr:nth-child(even) td{background:var(--pn)}
+.ci .tw{overflow-x:auto}
+.ci .co{border-left:5px solid var(--g);background:var(--gl);padding:10px 14px;border-radius:0 8px 8px 0;margin:14px 0}
+.ci .co.wa{border-color:var(--wa);background:var(--wl)}
+.ci .co.bd{border-color:var(--bd);background:var(--bl)}
+.ci .co b.t{display:block;font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;letter-spacing:1px;font-size:17px;margin-bottom:2px}
+.ci .formula{background:#fff;border:2px solid var(--g);border-radius:12px;padding:16px;text-align:center;margin:16px 0}
+.ci .formula .eq{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:700;color:var(--gd);word-break:break-word}
+.ci .formula small{display:block;color:var(--mu);margin-top:6px}
+.ci .pasos{counter-reset:p;list-style:none;padding:0}
+.ci .pasos li{counter-increment:p;position:relative;padding:8px 10px 8px 48px;margin:8px 0;background:var(--pn);border:1px solid var(--ln);border-radius:10px}
+.ci .pasos li::before{content:counter(p);position:absolute;left:10px;top:8px;width:28px;height:28px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.ci .flujo{display:flex;flex-direction:column;gap:6px;margin:14px 0}
+.ci .flujo .b{border:1px solid var(--ln);background:#fff;border-radius:10px;padding:10px 12px}
+.ci .flujo .b b{color:var(--gd)}
+.ci .flujo .fl{text-align:center;color:var(--g);font-size:18px;line-height:1}
+.ci .flujo .si{border-color:var(--g);background:var(--gl)}
+.ci .flujo .no{border-color:var(--bd);background:var(--bl)}
+.ci .ej{border:1px solid var(--ln);border-radius:12px;padding:12px 14px;margin:14px 0;background:#fff}
+.ci .ej h4{margin-top:0}
+.ci .ej .res{font-weight:700;padding:3px 10px;border-radius:12px;display:inline-block;margin-top:4px}
+.ci .res.ok{background:var(--gl);color:var(--g)}
+.ci .res.no{background:var(--bl);color:var(--bd)}
+.ci .tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;background:var(--gl);color:var(--gd);font-weight:700}
+.ci .mono{font-family:'JetBrains Mono',monospace;font-size:13px}
+.ci .lm{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:10px 0}
+.ci .lm div{border:1px solid var(--ln);border-radius:10px;padding:10px 12px;background:var(--pn)}
+.ci .lm b{color:var(--gd)}
+@media print{.ci h3{break-after:avoid}.ci .co,.ci .ej,.ci .formula{break-inside:avoid}}
+</style>
+
+<div class="kick">Capítulo 15 · Panel Calidad</div>
+<h2>Control de instrumentos de medición</h2>
+<p class="lead">Guía de uso del sistema de instrumentos: cómo cargar los elementos de medición, controlarlos, saber cuándo vencen, escanearlos desde la máquina y, sobre todo, <b>cómo decide el programa si un instrumento queda aprobado o rechazado</b> y en qué normas se apoya esa decisión.</p>
+
+<h3><span class="n">15.1</span>Qué hace el sistema</h3>
+<ul>
+<li>Lleva el <b>inventario</b> de vernier, micrómetros, alesómetros, tapones P-NP y otros instrumentos, con su máquina, responsable, frecuencia de control y vencimiento.</li>
+<li><b>Avisa</b> cuando un instrumento vence en 7 días o menos, y marca en rojo los vencidos.</li>
+<li>Registra cada <b>control</b> (5 mediciones contra una galga o patrón) y calcula <b>solo</b> si el instrumento está aprobado o rechazado.</li>
+<li>Genera el <b>certificado en PDF</b> de cada control y las <b>etiquetas con código de barras</b>.</li>
+<li>Permite que el <b>operario escanee</b> la etiqueta desde la máquina, vea la ficha y <b>solicite una revisión</b> a Calidad.</li>
+</ul>
+<div class="co wa"><b class="t">Dónde está</b>Calidad → <b>📏 INSTRUMENTOS</b>. Los operarios lo ven en su panel de máquina, pestaña <b>📏 INSTRUMENTOS</b>. Todos los datos se guardan aparte de los del resto del SIG.</div>
+
+<h3><span class="n">15.2</span>Quién hace qué</h3>
+<div class="tw"><table>
+<tr><th>Quién</th><th>Qué hace en el sistema</th></tr>
+<tr><td><b>Gerencia de Calidad</b></td><td>Define los valores de la pestaña <b>Tolerancias</b> (tolerancia máxima por tipo de instrumento y modalidad). Es la única fuente de esos números.</td></tr>
+<tr><td><b>Calidad (metrología)</b></td><td>Carga instrumentos, realiza los controles, imprime etiquetas, atiende solicitudes de revisión.</td></tr>
+<tr><td><b>Operario</b></td><td>Escanea el instrumento, consulta su estado y vencimiento, y pide una revisión si algo anda mal.</td></tr>
+</table></div>
+
+<h3><span class="n">15.3</span>Las pestañas de Calidad → Instrumentos</h3>
+<div class="tw"><table>
+<tr><th>Pestaña</th><th>Para qué sirve</th></tr>
+<tr><td><b>Vencimientos</b></td><td>Resumen: cuántos instrumentos hay, cuáles están vencidos o por vencer (7 días) y cuáles están rechazados. Muestra también las solicitudes de revisión pendientes.</td></tr>
+<tr><td><b>Calendario</b></td><td>Cuadro mes a mes: elegís enero, febrero, etc. y ves qué instrumentos vencen ese mes. Se puede filtrar por máquina. En el mes actual también muestra los ya vencidos sin renovar.</td></tr>
+<tr><td><b>Por máquina</b></td><td>Elegís una máquina y ves todos sus instrumentos. Al tocar uno se abre la <b>ficha completa</b> con datos, solicitudes pendientes e historial de controles.</td></tr>
+<tr><td><b>Solicitudes</b></td><td>Pedidos de revisión enviados por operarios. Desde acá se registra el control o se marca la solicitud como atendida.</td></tr>
+<tr><td><b>Escanear</b></td><td>Abre la cámara, lee la etiqueta y muestra la ficha del instrumento.</td></tr>
+<tr><td><b>Instrumentos</b></td><td>Lista completa con buscador y filtros por tipo y máquina. Alta, edición, baja, etiqueta individual y exportación a CSV.</td></tr>
+<tr><td><b>Registrar control</b></td><td>Carga de las 5 mediciones y decisión automática de aprobado o rechazado.</td></tr>
+<tr><td><b>Historial</b></td><td>Todos los controles realizados, con descarga del certificado PDF.</td></tr>
+<tr><td><b>Etiquetas</b></td><td>Impresión de etiquetas con código de barras (hoja A4, 24 etiquetas).</td></tr>
+<tr><td><b>Tolerancias</b></td><td>Tabla de tolerancias por tipo y modalidad. La completa Gerencia de Calidad.</td></tr>
+</table></div>
+
+<h3><span class="n">15.4</span>Cargar un instrumento nuevo</h3>
+<ol class="pasos">
+<li>Entrá a <b>Instrumentos → + Nuevo instrumento</b>.</li>
+<li>Completá <b>código</b> (único, es el que lleva la etiqueta), <b>tipo</b> (vernier, micrómetro, alesómetro, tapón P-NP u otro) y <b>modalidad</b> (mecánico o digital).</li>
+<li>Elegí la <b>máquina</b> donde se usa (la lista sale de las máquinas cargadas por Producción) o dejalo «Sin asignar».</li>
+<li>Cargá N° de fabricación, marca, a cargo de y apreciación.</li>
+<li>Indicá la <b>frecuencia de control en meses</b> y la <b>última revisión</b>. El <b>vencimiento se calcula solo</b> (última revisión + frecuencia), aunque podés corregirlo a mano.</li>
+<li>Opcional: <b>tolerancia propia</b>. Si la cargás, tiene prioridad sobre la tabla de Gerencia de Calidad (ver 15.6).</li>
+<li>Tocá <b>Guardar</b>. Después imprimí la etiqueta desde <b>Etiquetas</b> y pegala en el instrumento.</li>
+</ol>
+<div class="co"><b class="t">Dar de baja</b>Un instrumento retirado de uso se da de baja desde su edición. Deja de aparecer en alertas pero conserva su historial. «Eliminar» lo borra definitivamente (los controles quedan en el historial).</div>
+
+<h3><span class="n">15.5</span>Registrar un control, paso a paso</h3>
+<ol class="pasos">
+<li>Entrá a <b>Registrar control</b> (o tocá ese botón desde la ficha, el escaneo o una solicitud).</li>
+<li>Elegí el instrumento y la fecha del control.</li>
+<li>Anotá la <b>galga o patrón</b> usado y su <b>incertidumbre</b> (la informa el certificado del patrón, en mm).</li>
+<li>Cargá los <b>5 puntos</b>: en cada uno, el <b>valor real</b> (el nominal de la galga) y el <b>valor hallado</b> (lo que marca el instrumento). El sistema calcula la diferencia de cada punto.</li>
+<li>Con los 5 puntos completos, el sistema muestra el resultado <b>APROBADO</b> o <b>RECHAZADO</b> sin intervención de nadie.</li>
+<li>Agregá observaciones si hace falta y tocá <b>Guardar</b>.</li>
+</ol>
+<p>Al guardar, el sistema:</p>
+<ul>
+<li>Si queda <b>aprobado</b>: actualiza la última revisión y calcula el nuevo vencimiento (fecha del control + frecuencia). Saca la marca de rechazado.</li>
+<li>Si queda <b>rechazado</b>: marca el instrumento como <b>RECHAZADO</b> en rojo. No se renueva el vencimiento. Queda así hasta que un control posterior resulte aprobado.</li>
+<li>Cierra solas las solicitudes de revisión pendientes de ese instrumento.</li>
+<li>Deja listo el <b>certificado PDF</b> en el Historial.</li>
+</ul>
+
+<h3><span class="n">15.6</span>Cómo decide el sistema: aprobado o rechazado</h3>
+<p>La decisión es <b>automática, objetiva y siempre igual</b>: no depende de quién cargue el control. Usa una única regla:</p>
+<div class="formula">
+<div class="eq">error máximo + incertidumbre del patrón ≤ tolerancia  →  APROBADO</div>
+<small>Si el resultado es mayor que la tolerancia, el instrumento queda RECHAZADO.</small>
+</div>
+
+<h4>Los tres números de la regla</h4>
+<div class="tw"><table>
+<tr><th>Dato</th><th>De dónde sale</th></tr>
+<tr><td><b>Error máximo</b></td><td>En cada uno de los 5 puntos se calcula <span class="mono">error = valor hallado − valor real</span>. Se toma el <b>mayor error en valor absoluto</b> (no importa si el instrumento mide de más o de menos; el signo se ignora).</td></tr>
+<tr><td><b>Incertidumbre del patrón</b></td><td>La que informa el certificado de la galga o patrón. Representa cuánto puede equivocarse el propio patrón. Si se deja vacía, el sistema usa <b>0</b>.</td></tr>
+<tr><td><b>Tolerancia</b></td><td>El máximo error admitido para ese instrumento. Sale de la <b>tolerancia propia del instrumento</b> si la tiene; si no, de la <b>tabla de Gerencia de Calidad</b> según tipo y modalidad.</td></tr>
+</table></div>
+
+<h4>Recorrido de la decisión</h4>
+<div class="flujo">
+<div class="b"><b>1.</b> Se cargan los 5 puntos (real y hallado).</div><div class="fl">▼</div>
+<div class="b"><b>2.</b> Error de cada punto = hallado − real. Se toma el <b>mayor valor absoluto</b>.</div><div class="fl">▼</div>
+<div class="b"><b>3.</b> Se suma la <b>incertidumbre del patrón</b>.</div><div class="fl">▼</div>
+<div class="b"><b>4.</b> Se busca la <b>tolerancia</b>: primero la propia del instrumento, si no la tabla de Calidad.</div><div class="fl">▼</div>
+<div class="b"><b>5.</b> ¿Total ≤ tolerancia?</div>
+<div class="fl">▼</div>
+<div class="b si"><b>SÍ → APROBADO.</b> Nuevo vencimiento = fecha del control + frecuencia.</div>
+<div class="b no"><b>NO → RECHAZADO.</b> El instrumento queda marcado en rojo y sin nuevo vencimiento.</div>
+</div>
+
+<h4>Ejemplos con números</h4>
+<p>Todos con un vernier mecánico y una <b>tolerancia de 0,030 mm</b>. <i>El valor 0,030 es solo ilustrativo: el real lo define la tabla de Gerencia de Calidad.</i></p>
+<div class="ej">
+<h4>Caso A · Aprobado</h4>
+<p class="mono">Errores por punto: 0,00 · +0,01 · −0,01 · +0,02 · +0,01 mm</p>
+<p>Error máximo = 0,020 mm. Incertidumbre del patrón = 0,005 mm. Total = <b>0,025</b> mm, que es ≤ 0,030.</p>
+<span class="res ok">APROBADO</span>
+</div>
+<div class="ej">
+<h4>Caso B · Rechazado por la incertidumbre</h4>
+<p class="mono">Errores por punto: 0,00 · +0,01 · +0,03 · +0,02 · −0,01 mm</p>
+<p>Error máximo = 0,030 mm: por sí solo, justo en el límite. Pero con la incertidumbre de 0,005 mm el total es <b>0,035</b> mm, que es mayor que 0,030.</p>
+<span class="res no">RECHAZADO</span>
+<p>Este es el caso donde se ve por qué se suma la incertidumbre: el error medido llega al límite, y como el patrón también tiene su margen de duda, no se puede asegurar que el instrumento esté dentro de tolerancia.</p>
+</div>
+<div class="ej">
+<h4>Caso C · Justo en el límite</h4>
+<p>Error máximo 0,025 mm + incertidumbre 0,005 mm = <b>0,030</b> mm, igual a la tolerancia.</p>
+<span class="res ok">APROBADO</span>
+<p>La regla es «menor o igual»: un total que es exactamente la tolerancia aprueba.</p>
+</div>
+
+<h4>Casos especiales</h4>
+<div class="lm">
+<div><b>Sin tolerancia definida</b><br>Si ni el instrumento ni la tabla tienen tolerancia, el sistema <b>no puede decidir</b> y habilita elegir el resultado a mano. Esos controles quedan registrados como «manual». Conviene que Gerencia de Calidad complete la tabla para evitarlo.</div>
+<div><b>Puntos incompletos</b><br>Con tolerancia definida, el sistema exige los 5 puntos para calcular. No deja guardar un control a medias.</div>
+<div><b>Apreciación</b><br>Es solo un dato de la ficha (la menor división del instrumento). <b>No interviene</b> en la decisión.</div>
+<div><b>Decimales</b><br>Se acepta coma o punto. Las comparaciones tienen un margen de 0,000000001 mm para evitar errores de redondeo informático.</div>
+</div>
+
+<h3><span class="n">15.7</span>Normas en las que se apoya y por qué</h3>
+<div class="co wa"><b class="t">Importante</b>El sistema <b>aplica criterios</b> basados en estas normas, pero <b>no incluye su texto ni sus tablas de valores</b>. Los números de la tabla de Tolerancias los define Gerencia de Calidad con la edición vigente de cada norma, el manual del fabricante y los requisitos del cliente. Las referencias a cláusulas deben ser verificadas por Calidad contra su copia de la norma.</div>
+
+<div class="tw"><table>
+<tr><th>Norma</th><th>Qué establece</th><th>Cómo se usa en el sistema</th></tr>
+<tr><td><b>ISO 14253-1</b><br><small>Inspección por medición: reglas de decisión para verificar conformidad con las especificaciones</small></td><td>Fija reglas para decidir si una característica, o un equipo de medición frente a su error máximo permitido, está en conformidad o no, <b>teniendo en cuenta la incertidumbre de la medición</b>. Reconoce una zona de duda alrededor del límite donde no se puede declarar conformidad.</td><td><b>Es la base de la regla de decisión</b>: el sistema suma la incertidumbre al error medido y recién aprueba si el total entra en tolerancia. Es decir, aprueba solo cuando queda demostrado que el instrumento cumple, no cuando «probablemente» cumple.</td></tr>
+<tr><td><b>IATF 16949</b><br><small>Requisitos del sistema de calidad automotriz, cláusula 7.1.5 (recursos de seguimiento y medición)</small></td><td>Exige trazabilidad de las mediciones a patrones reconocidos y <b>registros de calibración/verificación</b>: fecha, identificación del instrumento, resultado, patrón usado y próxima fecha.</td><td>Cada control guarda todo eso (instrumento, fecha, galga o patrón, incertidumbre, los 5 puntos, resultado, responsable y próximo vencimiento) y genera el <b>certificado PDF</b>. El historial queda disponible para auditorías.</td></tr>
+<tr><td><b>ISO 10012</b><br><small>Sistemas de gestión de las mediciones</small></td><td>Pide gestionar los equipos de medición con <b>confirmación metrológica</b> a intervalos definidos y mantener registros.</td><td>La <b>frecuencia de control</b> por instrumento, el <b>vencimiento calculado automáticamente</b>, el aviso a 7 días y el estado «rechazado» hasta nuevo control aprobado.</td></tr>
+<tr><td><b>ISO 13385-1</b><br><small>Calibres a vernier (pie de rey)</small></td><td>Características de diseño y metrológicas de los calibres a vernier, incluyendo sus errores máximos permitidos.</td><td>Referencia para que Calidad fije la tolerancia de <b>vernier mecánico y digital</b> en la tabla.</td></tr>
+<tr><td><b>ISO 3611</b><br><small>Micrómetros de exteriores</small></td><td>Características de diseño y metrológicas de los micrómetros para medidas exteriores.</td><td>Referencia para la tolerancia de <b>micrómetros</b>.</td></tr>
+<tr><td><b>ISO 1938-1 e ISO 286</b><br><small>Calibres límite lisos y sistema de tolerancias y ajustes</small></td><td>Requisitos de los calibres límite pasa / no pasa y el sistema de tolerancias ISO para ejes y agujeros.</td><td>Referencia para la tolerancia de <b>tapones P-NP</b>.</td></tr>
+<tr><td><b>ISO/IEC 17025</b><br><small>Competencia de laboratorios de ensayo y calibración</small></td><td>Requisitos para laboratorios que calibran, entre ellos informar la incertidumbre y la trazabilidad.</td><td>Es la referencia para los <b>patrones y galgas</b> de las que sale el dato de «incertidumbre del patrón». Conviene que su certificado provenga de un laboratorio acreditado y trazable a un patrón nacional.</td></tr>
+</table></div>
+<p><b>Alesómetros y «otros» instrumentos:</b> no se cita una norma de producto específica. Su tolerancia la define Calidad con el criterio del fabricante o de planta.</p>
+
+<h3><span class="n">15.8</span>Por qué se decidió así</h3>
+<div class="tw"><table>
+<tr><th>Decisión</th><th>Motivo</th></tr>
+<tr><td><b>Se usa el error máximo de los 5 puntos</b>, no el promedio</td><td>Un promedio puede esconder un punto malo: un instrumento que mide bien en cuatro lugares y mal en uno <b>no es confiable</b>. El criterio exige que el peor punto cumpla.</td></tr>
+<tr><td><b>Se toma el valor absoluto del error</b></td><td>Medir de más o de menos es igual de grave. El signo se ve en la diferencia de cada punto, pero la decisión considera el desvío sin importar el sentido.</td></tr>
+<tr><td><b>Se suma la incertidumbre del patrón</b></td><td>Es el criterio prudente de ISO 14253-1: si el patrón tiene duda, esa duda se descuenta del margen disponible. Evita aprobar un instrumento que «apenas pasa» pero que quizás no pasa.</td></tr>
+<tr><td><b>La tolerancia depende del tipo y la modalidad</b></td><td>Un vernier mecánico, uno digital y un micrómetro no tienen la misma exactitud. Una sola tolerancia para todos aprobaría de más o rechazaría de más.</td></tr>
+<tr><td><b>La tolerancia la carga Gerencia de Calidad</b></td><td>Es una decisión técnica y de responsabilidad: la define quien responde ante las auditorías, no el programa ni el operario que carga el control.</td></tr>
+<tr><td><b>La tolerancia propia del instrumento tiene prioridad</b></td><td>Algunos instrumentos tienen requisitos distintos (por ejemplo, uno que se usa en una pieza más exigente). Permite exigirles más que a la tabla.</td></tr>
+<tr><td><b>Si no hay tolerancia, el resultado es manual</b></td><td>El sistema no inventa números. Cuando no existe el dato, queda a criterio de Calidad y se registra como manual para que sea visible.</td></tr>
+<tr><td><b>Rechazado no renueva el vencimiento</b></td><td>Un instrumento que falló no debe quedar «vigente» por haber sido controlado: solo un control aprobado lo habilita de nuevo.</td></tr>
+<tr><td><b>Aviso a 7 días</b></td><td>Da margen para controlar o reemplazar el instrumento antes de que venza, sin frenar la producción.</td></tr>
+</table></div>
+
+<h3><span class="n">15.9</span>Qué debe validar Calidad</h3>
+<div class="co bd"><b class="t">Antes de usarlo como registro oficial</b>
+<ul>
+<li>Que los <b>valores de la tabla de Tolerancias</b> estén cargados y aprobados por Gerencia de Calidad.</li>
+<li>Que la <b>regla</b> «error máximo + incertidumbre ≤ tolerancia» sea la que adopta el procedimiento de Calidad (es una aplicación conservadora de ISO 14253-1; la norma admite otras reglas de decisión si el procedimiento las define).</li>
+<li>Qué <b>incertidumbre</b> se carga: la del certificado del patrón. Si el procedimiento incluye otras fuentes (temperatura, operador), se debe definir cómo sumarlas.</li>
+<li>Los <b>puntos de medición</b> y rangos de cada tipo de instrumento (el sistema pide 5 puntos).</li>
+<li>La <b>edición vigente</b> de cada norma citada y los requisitos específicos de los clientes.</li>
+</ul></div>
+<p>El sistema <b>no reemplaza la calibración en laboratorio externo</b>: es la verificación interna de rutina contra galgas o patrones trazables.</p>
+
+<h3><span class="n">15.10</span>Etiquetas y escaneo</h3>
+<ol class="pasos">
+<li>En <b>Etiquetas</b>, elegí los instrumentos y tocá generar. Se descarga un PDF en hoja A4 (3 columnas × 8 filas) con código de barras y datos básicos.</li>
+<li>Imprimí a tamaño real (sin ajustar a página) y pegá la etiqueta en el instrumento o en su estuche.</li>
+<li>Para leerla: <b>Escanear</b> en Calidad, o la pestaña <b>📏 INSTRUMENTOS</b> en el panel del operador. Se abre la cámara, se apunta al código y aparece la ficha.</li>
+<li>Si la cámara no está disponible, se puede escribir el código a mano, o usar un lector USB o Bluetooth.</li>
+</ol>
+<div class="co"><b class="t">Compatibilidad</b>La lectura con cámara usa el lector nativo de Chrome en Android. En otros navegadores o equipos que no lo soporten, usá el ingreso manual o un lector de códigos.</div>
+
+<h3><span class="n">15.11</span>Para el operario: consultar y pedir revisión</h3>
+<ol class="pasos">
+<li>En tu máquina, entrá a <b>📏 INSTRUMENTOS</b> y tocá <b>Abrir cámara</b>.</li>
+<li>Apuntá al código de barras del instrumento. Aparece la ficha: tipo, máquina, marca, responsable, apreciación, última revisión y <b>vencimiento con su estado</b>.</li>
+<li>Si el instrumento está <b>vencido, rechazado</b> o notás que <b>no funciona bien</b>, tocá <b>Solicitar revisión</b>.</li>
+<li>Elegí el motivo (mal funcionamiento, golpe o caída, lectura dudosa, daño o desgaste visible, se pasó la fecha de control u otro), agregá un comentario, indicá tu nombre y la máquina, y tocá <b>Enviar a Calidad</b>.</li>
+</ol>
+<div class="co wa"><b class="t">Cómo se entera Calidad</b>La solicitud aparece en <b>Calidad → Instrumentos → Solicitudes</b> con un número rojo, y en el panel de Vencimientos. Si Calidad tiene el SIG abierto, además ve un cartel, escucha un aviso y puede recibir una notificación del navegador. <b>Si el SIG está cerrado, el aviso se ve al abrirlo</b>: todavía no hay notificaciones con la aplicación cerrada. Para casos urgentes, avisar también en persona.</div>
+<p>Cuando Calidad registra un control del instrumento, la solicitud se cierra sola.</p>
+
+<h3><span class="n">15.12</span>Buenas prácticas y problemas frecuentes</h3>
+<ul>
+<li><b>Controlar antes del vencimiento.</b> Un control hecho a tiempo mantiene el ciclo; si se vence, el instrumento no debería usarse hasta controlarlo.</li>
+<li><b>Un instrumento rechazado no se usa.</b> Retirarlo, y solo vuelve a producción con un control aprobado.</li>
+<li><b>Cargar siempre la incertidumbre del patrón.</b> Si queda vacía, el sistema usa 0 y la decisión es menos exigente de lo que correspondería.</li>
+<li><b>Usar patrones vigentes y trazables.</b> Un control hecho con una galga sin certificado vigente no tiene valor.</li>
+<li><b>Código único.</b> No se pueden repetir códigos de instrumentos; es lo que identifica la etiqueta.</li>
+</ul>
+<div class="tw"><table>
+<tr><th>Si pasa esto…</th><th>Hacé esto</th></tr>
+<tr><td>El control no muestra resultado automático</td><td>Falta la tolerancia del tipo y modalidad: avisá a Gerencia de Calidad para que la cargue en <b>Tolerancias</b>, o cargala como tolerancia propia.</td></tr>
+<tr><td>La cámara no abre</td><td>Revisá el permiso de cámara del navegador. Si no está disponible, ingresá el código a mano.</td></tr>
+<tr><td>Un instrumento no aparece en el filtro de una máquina</td><td>Editalo y asignale la máquina; los cargados antes de esta función están «Sin asignar».</td></tr>
+<tr><td>Aparece un cartel «Algo falló en Instrumentos»</td><td>Tocá <b>Reintentar</b>. Si persiste, sacá una captura y pasala a quien administra el SIG.</td></tr>
+<tr><td>Los avisos del navegador no llegan</td><td>Se activan desde Vencimientos y funcionan solo con el SIG abierto; en algunos celulares el navegador los bloquea.</td></tr>
+</table></div>
+</section>
+
+<p class="font-display mt-2 text-3xl tracking-[0.14em] text-white">Fin del manual de uso</p>
             <p class="mt-2 text-sm text-white/70">S.I.G. · Sistema de Gestión Interna · Documento interno · Septiembre 2026</p>
             <div class="mt-5 flex flex-wrap items-center justify-center gap-2">
               <span class="inline-flex items-center gap-1 rounded-full bg-green px-3 py-1 text-xs font-semibold text-white"><i data-lucide="package" class="h-3.5 w-3.5"></i> Pañol</span>
