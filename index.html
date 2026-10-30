@@ -735,7 +735,8 @@
               <p class="mt-1 text-sm text-muted">Usá Imprimir / PDF en el encabezado para archivar o entregar una copia en papel o digital.</p>
             </div>
           </div>
-          <section class="ci print-break scroll-mt-24" id="control-instrumentos">
+          
+<section class="ci print-break scroll-mt-24" id="control-instrumentos">
 <style>
 .ci{--g:#1e8e3e;--gd:#166b2f;--gl:#e3f4e8;--bg:#fff;--pn:#f5f8f6;--ln:#d3ddd6;--tx:#17261c;--mu:#5f7066;--wa:#b7791f;--wl:#fdf0d5;--bd:#c62828;--bl:#fbe4e4;color:var(--tx);font-family:'DM Sans',system-ui,sans-serif;line-height:1.55;font-size:15px}
 .ci *{box-sizing:border-box}
@@ -804,7 +805,7 @@
 <h3><span class="n">15.2</span>Quién hace qué</h3>
 <div class="tw"><table>
 <tr><th>Quién</th><th>Qué hace en el sistema</th></tr>
-<tr><td><b>Gerencia de Calidad</b></td><td>Define los valores de la pestaña <b>Tolerancias</b> (tolerancia máxima por tipo de instrumento y modalidad). Es la única fuente de esos números.</td></tr>
+<tr><td><b>Gerencia de Calidad</b></td><td>No tiene que cargar nada para que el sistema funcione: las tolerancias ya vienen por defecto. En la pestaña <b>Tolerancias</b> puede <b>ajustar</b> un valor, si un cliente o su procedimiento exigen otro.</td></tr>
 <tr><td><b>Calidad (metrología)</b></td><td>Carga instrumentos, realiza los controles, imprime etiquetas, atiende solicitudes de revisión.</td></tr>
 <tr><td><b>Operario</b></td><td>Escanea el instrumento, consulta su estado y vencimiento, y pide una revisión si algo anda mal.</td></tr>
 </table></div>
@@ -821,7 +822,7 @@
 <tr><td><b>Registrar control</b></td><td>Carga de las 5 mediciones y decisión automática de aprobado o rechazado.</td></tr>
 <tr><td><b>Historial</b></td><td>Todos los controles realizados, con descarga del certificado PDF.</td></tr>
 <tr><td><b>Etiquetas</b></td><td>Impresión de etiquetas con código de barras (hoja A4, 24 etiquetas).</td></tr>
-<tr><td><b>Tolerancias</b></td><td>Tabla de tolerancias por tipo y modalidad. La completa Gerencia de Calidad.</td></tr>
+<tr><td><b>Tolerancias</b></td><td>Muestra las tolerancias por defecto y permite ajustes opcionales por tipo y modalidad.</td></tr>
 </table></div>
 
 <h3><span class="n">15.4</span>Cargar un instrumento nuevo</h3>
@@ -831,7 +832,8 @@
 <li>Elegí la <b>máquina</b> donde se usa (la lista sale de las máquinas cargadas por Producción) o dejalo «Sin asignar».</li>
 <li>Cargá N° de fabricación, marca, a cargo de y apreciación.</li>
 <li>Indicá la <b>frecuencia de control en meses</b> y la <b>última revisión</b>. El <b>vencimiento se calcula solo</b> (última revisión + frecuencia), aunque podés corregirlo a mano.</li>
-<li>Opcional: <b>tolerancia propia</b>. Si la cargás, tiene prioridad sobre la tabla de Gerencia de Calidad (ver 15.6).</li>
+<li>Solo en micrómetros: el <b>rango máximo</b> (25, 50, 75, 100 mm…), porque la tolerancia sube con el rango. Es opcional.</li>
+<li>La <b>tolerancia no hace falta cargarla</b>: el sistema usa la que corresponde al tipo (ver 15.6). Solo la completás si este instrumento necesita otro valor (tolerancia propia).</li>
 <li>Tocá <b>Guardar</b>. Después imprimí la etiqueta desde <b>Etiquetas</b> y pegala en el instrumento.</li>
 </ol>
 <div class="co"><b class="t">Dar de baja</b>Un instrumento retirado de uso se da de baja desde su edición. Deja de aparecer en alertas pero conserva su historial. «Eliminar» lo borra definitivamente (los controles quedan en el historial).</div>
@@ -865,8 +867,24 @@
 <tr><th>Dato</th><th>De dónde sale</th></tr>
 <tr><td><b>Error máximo</b></td><td>En cada uno de los 5 puntos se calcula <span class="mono">error = valor hallado − valor real</span>. Se toma el <b>mayor error en valor absoluto</b> (no importa si el instrumento mide de más o de menos; el signo se ignora).</td></tr>
 <tr><td><b>Incertidumbre del patrón</b></td><td>La que informa el certificado de la galga o patrón. Representa cuánto puede equivocarse el propio patrón. Si se deja vacía, el sistema usa <b>0</b>.</td></tr>
-<tr><td><b>Tolerancia</b></td><td>El máximo error admitido para ese instrumento. Sale de la <b>tolerancia propia del instrumento</b> si la tiene; si no, de la <b>tabla de Gerencia de Calidad</b> según tipo y modalidad.</td></tr>
+<tr><td><b>Tolerancia</b></td><td>El máximo error admitido para ese instrumento. Se busca en este orden: 1) la <b>tolerancia propia</b> del instrumento, si tiene; 2) un <b>ajuste de Gerencia de Calidad</b>, si lo cargó; 3) el <b>valor por defecto</b> del sistema, según tipo y lectura del instrumento (ver abajo). Cada control guarda el valor usado y su base.</td></tr>
 </table></div>
+
+<h4>Tolerancia por defecto: cómo se define sin que nadie la cargue</h4>
+<p>Un calibre mide muchas piezas distintas, así que la tolerancia <b>no depende de la pieza</b>. Para aprobar el control se usa el <b>error máximo permitido (EMP) del propio instrumento</b>, según su tipo y su lectura. Eso es lo que fijan las normas de producto y los fabricantes, y el sistema lo aplica solo:</p>
+<div class="tw"><table>
+<tr><th>Instrumento</th><th>Tolerancia por defecto</th><th>Base</th></tr>
+<tr><td>Calibre mecánico, lectura 0,02 mm</td><td><b>0,03 mm</b> (lectura 0,05: 0,05 mm; lectura 0,1: 0,10 mm)</td><td>ISO 13385-1 y especificaciones de fabricantes</td></tr>
+<tr><td>Calibre digital, lectura 0,01 mm</td><td><b>0,02 mm</b></td><td>ISO 13385-1 y especificaciones de fabricantes</td></tr>
+<tr><td>Micrómetro de exteriores</td><td><b>0,004 mm</b> hasta 50 mm de rango; 0,005 hasta 100; 0,006 hasta 150; y así sube 0,001 cada 50 mm</td><td>ISO 3611 (el rango se indica en la ficha; si no se carga, se asume 25 mm)</td></tr>
+<tr><td>Alesómetro</td><td><b>0,010 mm</b> (lectura 0,01) o <b>0,003 mm</b> (lectura más fina)</td><td>Valor típico de fabricantes; no hay norma de producto</td></tr>
+<tr><td>Tapón P-NP y otros</td><td>Sin valor por defecto</td><td>Depende de la pieza y del ajuste (ISO 286 / ISO 1938-1): se carga la tolerancia propia</td></tr>
+</table></div>
+<ul>
+<li><b>Siempre se registra la base.</b> Cada control guarda la tolerancia usada y de dónde salió, y el certificado PDF la muestra.</li>
+<li><b>Aptitud para una pieza:</b> que el instrumento sea adecuado para medir una pieza determinada (por ejemplo, que su error no pase del 10 % de la tolerancia de la pieza, criterio habitual en MSA / IATF 16949) se verifica al elegir el instrumento en el plan de control. No es la condición para aprobar su calibración.</li>
+</ul>
+<div class="co wa"><b class="t">Valores a confirmar</b>Los valores de la tabla son referencias de las normas y de especificaciones típicas de fabricantes. No se pudo consultar el anexo con los valores de la ISO 13385-1 ni el texto de la ISO 3611, así que <b>Calidad debe verificarlos contra su copia de las normas y los requisitos de Ford y Toyota</b>. Si hace falta otro valor, se ajusta en la pestaña Tolerancias (por tipo) o en la ficha del instrumento (propia).</div>
 
 <h4>Recorrido de la decisión</h4>
 <div class="flujo">
@@ -881,7 +899,7 @@
 </div>
 
 <h4>Ejemplos con números</h4>
-<p>Todos con un vernier mecánico y una <b>tolerancia de 0,030 mm</b>. <i>El valor 0,030 es solo ilustrativo: el real lo define la tabla de Gerencia de Calidad.</i></p>
+<p>Todos con un calibre vernier mecánico de lectura 0,02 mm, cuya <b>tolerancia por defecto es 0,030 mm</b> (ISO 13385-1 y fabricantes; ver arriba).</p>
 <div class="ej">
 <h4>Caso A · Aprobado</h4>
 <p class="mono">Errores por punto: 0,00 · +0,01 · −0,01 · +0,02 · +0,01 mm</p>
@@ -904,26 +922,26 @@
 
 <h4>Casos especiales</h4>
 <div class="lm">
-<div><b>Sin tolerancia definida</b><br>Si ni el instrumento ni la tabla tienen tolerancia, el sistema <b>no puede decidir</b> y habilita elegir el resultado a mano. Esos controles quedan registrados como «manual». Conviene que Gerencia de Calidad complete la tabla para evitarlo.</div>
+<div><b>Sin tolerancia definida</b><br>Los tipos sin valor por defecto (tapón P-NP y «otros») necesitan una tolerancia propia en su ficha. Si no la tienen, el sistema <b>no puede decidir</b> y habilita elegir el resultado a mano; esos controles quedan registrados como «manual».</div>
 <div><b>Puntos incompletos</b><br>Con tolerancia definida, el sistema exige los 5 puntos para calcular. No deja guardar un control a medias.</div>
 <div><b>Apreciación</b><br>Es solo un dato de la ficha (la menor división del instrumento). <b>No interviene</b> en la decisión.</div>
 <div><b>Decimales</b><br>Se acepta coma o punto. Las comparaciones tienen un margen de 0,000000001 mm para evitar errores de redondeo informático.</div>
 </div>
 
 <h3><span class="n">15.7</span>Normas en las que se apoya y por qué</h3>
-<div class="co wa"><b class="t">Importante</b>El sistema <b>aplica criterios</b> basados en estas normas, pero <b>no incluye su texto ni sus tablas de valores</b>. Los números de la tabla de Tolerancias los define Gerencia de Calidad con la edición vigente de cada norma, el manual del fabricante y los requisitos del cliente. Las referencias a cláusulas deben ser verificadas por Calidad contra su copia de la norma.</div>
+<div class="co wa"><b class="t">Importante</b>El sistema <b>aplica criterios</b> basados en estas normas, pero <b>no incluye su texto ni sus tablas completas</b>: los valores por defecto son referencias que Calidad debe verificar con la edición vigente de cada norma, el manual del fabricante y los requisitos del cliente. Las referencias a cláusulas deben ser verificadas por Calidad contra su copia de la norma.</div>
 
 <div class="tw"><table>
 <tr><th>Norma</th><th>Qué establece</th><th>Cómo se usa en el sistema</th></tr>
 <tr><td><b>ISO 14253-1</b><br><small>Inspección por medición: reglas de decisión para verificar conformidad con las especificaciones</small></td><td>Fija reglas para decidir si una característica, o un equipo de medición frente a su error máximo permitido, está en conformidad o no, <b>teniendo en cuenta la incertidumbre de la medición</b>. Reconoce una zona de duda alrededor del límite donde no se puede declarar conformidad.</td><td><b>Es la base de la regla de decisión</b>: el sistema suma la incertidumbre al error medido y recién aprueba si el total entra en tolerancia. Es decir, aprueba solo cuando queda demostrado que el instrumento cumple, no cuando «probablemente» cumple.</td></tr>
 <tr><td><b>IATF 16949</b><br><small>Requisitos del sistema de calidad automotriz, cláusula 7.1.5 (recursos de seguimiento y medición)</small></td><td>Exige trazabilidad de las mediciones a patrones reconocidos y <b>registros de calibración/verificación</b>: fecha, identificación del instrumento, resultado, patrón usado y próxima fecha.</td><td>Cada control guarda todo eso (instrumento, fecha, galga o patrón, incertidumbre, los 5 puntos, resultado, responsable y próximo vencimiento) y genera el <b>certificado PDF</b>. El historial queda disponible para auditorías.</td></tr>
 <tr><td><b>ISO 10012</b><br><small>Sistemas de gestión de las mediciones</small></td><td>Pide gestionar los equipos de medición con <b>confirmación metrológica</b> a intervalos definidos y mantener registros.</td><td>La <b>frecuencia de control</b> por instrumento, el <b>vencimiento calculado automáticamente</b>, el aviso a 7 días y el estado «rechazado» hasta nuevo control aprobado.</td></tr>
-<tr><td><b>ISO 13385-1</b><br><small>Calibres a vernier (pie de rey)</small></td><td>Características de diseño y metrológicas de los calibres a vernier, incluyendo sus errores máximos permitidos.</td><td>Referencia para que Calidad fije la tolerancia de <b>vernier mecánico y digital</b> en la tabla.</td></tr>
-<tr><td><b>ISO 3611</b><br><small>Micrómetros de exteriores</small></td><td>Características de diseño y metrológicas de los micrómetros para medidas exteriores.</td><td>Referencia para la tolerancia de <b>micrómetros</b>.</td></tr>
-<tr><td><b>ISO 1938-1 e ISO 286</b><br><small>Calibres límite lisos y sistema de tolerancias y ajustes</small></td><td>Requisitos de los calibres límite pasa / no pasa y el sistema de tolerancias ISO para ejes y agujeros.</td><td>Referencia para la tolerancia de <b>tapones P-NP</b>.</td></tr>
+<tr><td><b>ISO 13385-1</b><br><small>Calibres a vernier (pie de rey)</small></td><td>Características de diseño y metrológicas de los calibres a vernier, incluyendo sus errores máximos permitidos.</td><td>Base de la tolerancia por defecto de <b>calibres vernier mecánicos y digitales</b>.</td></tr>
+<tr><td><b>ISO 3611</b><br><small>Micrómetros de exteriores</small></td><td>Características de diseño y metrológicas de los micrómetros para medidas exteriores.</td><td>Base de la tolerancia por defecto de <b>micrómetros</b>, según el rango.</td></tr>
+<tr><td><b>ISO 1938-1 e ISO 286</b><br><small>Calibres límite lisos y sistema de tolerancias y ajustes</small></td><td>Requisitos de los calibres límite pasa / no pasa y el sistema de tolerancias ISO para ejes y agujeros.</td><td>Referencia para fijar la tolerancia propia de <b>tapones P-NP</b>; el valor depende de la pieza, por eso no hay uno por defecto.</td></tr>
 <tr><td><b>ISO/IEC 17025</b><br><small>Competencia de laboratorios de ensayo y calibración</small></td><td>Requisitos para laboratorios que calibran, entre ellos informar la incertidumbre y la trazabilidad.</td><td>Es la referencia para los <b>patrones y galgas</b> de las que sale el dato de «incertidumbre del patrón». Conviene que su certificado provenga de un laboratorio acreditado y trazable a un patrón nacional.</td></tr>
 </table></div>
-<p><b>Alesómetros y «otros» instrumentos:</b> no se cita una norma de producto específica. Su tolerancia la define Calidad con el criterio del fabricante o de planta.</p>
+<p><b>Alesómetros:</b> no hay una norma de producto específica; se usa el valor típico de los fabricantes. <b>«Otros» instrumentos:</b> requieren tolerancia propia.</p>
 
 <h3><span class="n">15.8</span>Por qué se decidió así</h3>
 <div class="tw"><table>
@@ -932,7 +950,7 @@
 <tr><td><b>Se toma el valor absoluto del error</b></td><td>Medir de más o de menos es igual de grave. El signo se ve en la diferencia de cada punto, pero la decisión considera el desvío sin importar el sentido.</td></tr>
 <tr><td><b>Se suma la incertidumbre del patrón</b></td><td>Es el criterio prudente de ISO 14253-1: si el patrón tiene duda, esa duda se descuenta del margen disponible. Evita aprobar un instrumento que «apenas pasa» pero que quizás no pasa.</td></tr>
 <tr><td><b>La tolerancia depende del tipo y la modalidad</b></td><td>Un vernier mecánico, uno digital y un micrómetro no tienen la misma exactitud. Una sola tolerancia para todos aprobaría de más o rechazaría de más.</td></tr>
-<tr><td><b>La tolerancia la carga Gerencia de Calidad</b></td><td>Es una decisión técnica y de responsabilidad: la define quien responde ante las auditorías, no el programa ni el operario que carga el control.</td></tr>
+<tr><td><b>La tolerancia sale del instrumento, no de la pieza</b></td><td>Un calibre mide muchas piezas distintas. Se aprueba su calibración contra el error máximo permitido para ese tipo de instrumento (normas de producto y fabricantes), igual para todos y sin que nadie la elija. La aptitud para una pieza se verifica aparte, en el plan de control.</td></tr>
 <tr><td><b>La tolerancia propia del instrumento tiene prioridad</b></td><td>Algunos instrumentos tienen requisitos distintos (por ejemplo, uno que se usa en una pieza más exigente). Permite exigirles más que a la tabla.</td></tr>
 <tr><td><b>Si no hay tolerancia, el resultado es manual</b></td><td>El sistema no inventa números. Cuando no existe el dato, queda a criterio de Calidad y se registra como manual para que sea visible.</td></tr>
 <tr><td><b>Rechazado no renueva el vencimiento</b></td><td>Un instrumento que falló no debe quedar «vigente» por haber sido controlado: solo un control aprobado lo habilita de nuevo.</td></tr>
@@ -942,7 +960,7 @@
 <h3><span class="n">15.9</span>Qué debe validar Calidad</h3>
 <div class="co bd"><b class="t">Antes de usarlo como registro oficial</b>
 <ul>
-<li>Que los <b>valores de la tabla de Tolerancias</b> estén cargados y aprobados por Gerencia de Calidad.</li>
+<li>Que los <b>valores por defecto</b> (calibres, micrómetros, alesómetros) coincidan con lo que dicen las normas vigentes y lo que exigen Ford y Toyota. Si no, ajustarlos en la pestaña Tolerancias.</li>
 <li>Que la <b>regla</b> «error máximo + incertidumbre ≤ tolerancia» sea la que adopta el procedimiento de Calidad (es una aplicación conservadora de ISO 14253-1; la norma admite otras reglas de decisión si el procedimiento las define).</li>
 <li>Qué <b>incertidumbre</b> se carga: la del certificado del patrón. Si el procedimiento incluye otras fuentes (temperatura, operador), se debe definir cómo sumarlas.</li>
 <li>Los <b>puntos de medición</b> y rangos de cada tipo de instrumento (el sistema pide 5 puntos).</li>
@@ -950,7 +968,26 @@
 </ul></div>
 <p>El sistema <b>no reemplaza la calibración en laboratorio externo</b>: es la verificación interna de rutina contra galgas o patrones trazables.</p>
 
-<h3><span class="n">15.10</span>Etiquetas y escaneo</h3>
+<h3><span class="n">15.10</span>Tapones de rosca</h3>
+<p>Los tapones roscados tienen su <b>propia pestaña</b> («Tapones de rosca») y su propio control, separado del resto de los instrumentos. No se controlan con los 5 puntos, sino por el <b>diámetro medio</b> de la rosca.</p>
+<h4>Alta</h4>
+<ol class="pasos">
+<li>En <b>Tapones de rosca → + Nuevo tapón de rosca</b>, cargá código, designación de la rosca (por ejemplo M10x1,5 6H) y el <b>paso</b> en mm.</li>
+<li>Elegí el ángulo del flanco (60° para métrica y UN) y, si querés, el diámetro del alambre habitual. El sistema sugiere el <b>alambre ideal</b>.</li>
+<li>Cargá los <b>límites del diámetro medio</b> del lado PASA y del lado NO PASA (mínimo y máximo). Salen del plano o del certificado del tapón, según la norma de calibres de rosca.</li>
+</ol>
+<h4>Control</h4>
+<ol class="pasos">
+<li>Elegí el tapón, la fecha y la incertidumbre de la medición.</li>
+<li>Para cada lado (PASA y NO PASA) cargá el <b>diámetro del alambre d</b> y la <b>cota M medida sobre los alambres</b>.</li>
+<li>El sistema calcula el <b>diámetro medio E</b> y lo compara con los límites.</li>
+</ol>
+<div class="formula"><div class="eq">E = M − d·(1 + 1/sen(α/2)) + (P/2)·cot(α/2)</div><small>Para roscas de 60° equivale a E = M − 3·d + 0,866025·P</small></div>
+<p><b>Regla de decisión:</b> en cada lado debe cumplirse <b>E − incertidumbre ≥ mínimo</b> y <b>E + incertidumbre ≤ máximo</b>. Si los dos lados cumplen, el tapón queda <b>aprobado</b>; si alguno no, <b>rechazado</b>. Es la misma lógica conservadora de la ISO 14253-1, aplicada al diámetro medio. Si faltan los límites, el sistema no decide y el resultado se elige a mano.</p>
+<p>Genera su propio certificado PDF. Los tapones roscados también aparecen en los vencimientos, el calendario, «Por máquina» y las etiquetas.</p>
+<div class="co wa"><b class="t">Qué debe validar Calidad</b>Que el método de las tres varillas y los límites cargados coincidan con el procedimiento y la norma de calibres de rosca que usa la planta (por ejemplo ISO 1502 para roscas métricas). El sistema calcula con los datos que se le cargan: no trae tablas de la norma.</div>
+
+<h3><span class="n">15.11</span>Etiquetas y escaneo</h3>
 <ol class="pasos">
 <li>En <b>Etiquetas</b>, elegí los instrumentos y tocá generar. Se descarga un PDF en hoja A4 (3 columnas × 8 filas) con código de barras y datos básicos.</li>
 <li>Imprimí a tamaño real (sin ajustar a página) y pegá la etiqueta en el instrumento o en su estuche.</li>
@@ -959,7 +996,7 @@
 </ol>
 <div class="co"><b class="t">Compatibilidad</b>La lectura con cámara usa el lector nativo de Chrome en Android. En otros navegadores o equipos que no lo soporten, usá el ingreso manual o un lector de códigos.</div>
 
-<h3><span class="n">15.11</span>Para el operario: consultar y pedir revisión</h3>
+<h3><span class="n">15.12</span>Para el operario: consultar y pedir revisión</h3>
 <ol class="pasos">
 <li>En tu máquina, entrá a <b>📏 INSTRUMENTOS</b> y tocá <b>Abrir cámara</b>.</li>
 <li>Apuntá al código de barras del instrumento. Aparece la ficha: tipo, máquina, marca, responsable, apreciación, última revisión y <b>vencimiento con su estado</b>.</li>
@@ -969,7 +1006,7 @@
 <div class="co wa"><b class="t">Cómo se entera Calidad</b>La solicitud aparece en <b>Calidad → Instrumentos → Solicitudes</b> con un número rojo, y en el panel de Vencimientos. Si Calidad tiene el SIG abierto, además ve un cartel, escucha un aviso y puede recibir una notificación del navegador. <b>Si el SIG está cerrado, el aviso se ve al abrirlo</b>: todavía no hay notificaciones con la aplicación cerrada. Para casos urgentes, avisar también en persona.</div>
 <p>Cuando Calidad registra un control del instrumento, la solicitud se cierra sola.</p>
 
-<h3><span class="n">15.12</span>Buenas prácticas y problemas frecuentes</h3>
+<h3><span class="n">15.13</span>Buenas prácticas y problemas frecuentes</h3>
 <ul>
 <li><b>Controlar antes del vencimiento.</b> Un control hecho a tiempo mantiene el ciclo; si se vence, el instrumento no debería usarse hasta controlarlo.</li>
 <li><b>Un instrumento rechazado no se usa.</b> Retirarlo, y solo vuelve a producción con un control aprobado.</li>
@@ -979,7 +1016,7 @@
 </ul>
 <div class="tw"><table>
 <tr><th>Si pasa esto…</th><th>Hacé esto</th></tr>
-<tr><td>El control no muestra resultado automático</td><td>Falta la tolerancia del tipo y modalidad: avisá a Gerencia de Calidad para que la cargue en <b>Tolerancias</b>, o cargala como tolerancia propia.</td></tr>
+<tr><td>El control no muestra resultado automático</td><td>Es un tipo sin valor por defecto (tapón P-NP u otro): cargá la <b>tolerancia propia</b> en la ficha del instrumento, o un ajuste para ese tipo en <b>Tolerancias</b>.</td></tr>
 <tr><td>La cámara no abre</td><td>Revisá el permiso de cámara del navegador. Si no está disponible, ingresá el código a mano.</td></tr>
 <tr><td>Un instrumento no aparece en el filtro de una máquina</td><td>Editalo y asignale la máquina; los cargados antes de esta función están «Sin asignar».</td></tr>
 <tr><td>Aparece un cartel «Algo falló en Instrumentos»</td><td>Tocá <b>Reintentar</b>. Si persiste, sacá una captura y pasala a quien administra el SIG.</td></tr>
